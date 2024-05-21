@@ -1,0 +1,43 @@
+name: Test Odin Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Test Spaceship_to_the_Moon.py
+      run: python Spaceship_to_the_Moon.py
+      continue-on-error: true
+
+    - name: Check for error
+      if: ${{ failure() }}
+      run: exit 1
+
+    - name: Test Two_planets.py
+      run: python Two_planets.py
+
+    - name: Check result.png
+      run: test -f result.png
+
+    - name: Test Without_bad_habbits.py
+      run: python Without_bad_habbits.py
+
+    - name: Check out.cvs
+      run: test -f out.cvs
