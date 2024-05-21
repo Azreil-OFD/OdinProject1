@@ -20,7 +20,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        pip install -r requirements.txt |
+        pip install build-essential libasound2-dev
 
     - name: Test Spaceship_to_the_Moon.py
       run: python Spaceship_to_the_Moon.py
